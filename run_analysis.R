@@ -46,12 +46,12 @@ rm(features_labels)
 merged <- bind_rows("test" = test, "train" = train, .id = "dataset")
 
 # Extracts only the measurements on the mean and standard deviation:
-#merged <- select(merged, contains("mean"), contains("std"))
+merged <- select(merged, dataset, subject, activity, contains("mean"), contains("std"))
 
 # Uses descriptive activity names to name the activities in the data set:
 activity_labels <- read_delim(file = "data/activity_labels.txt", delim = " ",
                               col_names = c("activity", "activity_label"))
-merged <- bind_cols(left_join(merged, activity_labels, by = "activity")[565], merged)
+merged <- bind_cols(left_join(merged, activity_labels, by = "activity")["activity_label"], merged)
 merged <- mutate(merged, activity = activity_label)
 merged <- select(merged, -activity_label)
 rm(activity_labels)
