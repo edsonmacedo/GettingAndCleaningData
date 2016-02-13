@@ -45,6 +45,10 @@ rm(features_labels)
 # Merges the datasets (using row bindding, since both datasets have the same columns):
 merged <- bind_rows("test" = test, "train" = train, .id = "dataset")
 
+# Removes the merged data sets:
+rm(test)
+rm(train)
+
 # Extracts only the measurements on the mean and standard deviation:
 merged <- select(merged, dataset, subject, activity, contains("mean"), contains("std"))
 
@@ -55,3 +59,10 @@ merged <- bind_cols(left_join(merged, activity_labels, by = "activity")["activit
 merged <- mutate(merged, activity = activity_label)
 merged <- select(merged, -activity_label)
 rm(activity_labels)
+
+# Creates a data set with the average of each variable for each activity and each subject:
+merged_avg <- summarise_each(group_by(merged, activity, subject), funs(mean(., na.rm = TRUE)), -dataset)
+
+# Exports the data set files:
+write_csv(merged_avg, path = "merged_avg.csv")
+write_csv(merged, path = "merged.csv")
