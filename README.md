@@ -1,5 +1,5 @@
-# This is a Repo for the final projec of Getting and Cleaning Data on Coursera Data Science specialization.
-
+This is a Repo for the final projec of Getting and Cleaning Data on Coursera Data Science specialization.
+***
 ## Info about data transformation
 
 # General Info
