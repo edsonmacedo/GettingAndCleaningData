@@ -64,5 +64,4 @@ rm(activity_labels)
 merged_avg <- summarise_each(group_by(merged, activity, subject), funs(mean(., na.rm = TRUE)), -dataset)
 
 # Exports the data set files:
-write_csv(merged_avg, path = "merged_avg.csv")
-write_csv(merged, path = "merged.csv")
+write.table(merged_avg, file = "merged_avg.txt", row.names = FALSE)
